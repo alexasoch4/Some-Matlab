@@ -1,13 +1,7 @@
-function [x] = chol_solver(A,b)
-% Usage: [x] = chol_solver(A,b)
-% Solve Ax = b by cholesky factorization
-% Input:
-% A = positive definite matrix
-% b = right hand side
-% Output:
-% x = solution vector
+%function needed for PLU_vs_Cholesky.m
 
-L = chol(A,'lower'); % Matlab command
+function [x] = chol_solver(A,b)
+L = chol(A,'lower'); 
 x = backsub(L', forsub(L, b));
 
 
