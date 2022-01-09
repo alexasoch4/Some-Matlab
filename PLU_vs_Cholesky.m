@@ -1,32 +1,28 @@
-%from Q3
+%comparing PLU and Cholesky factorization for a given matrix A and b. Want to see which one is more efficient in time and has less error.
 
 time_chol = [];
 time_plu = [];
 error_chol = [];
 error_plu = [];
 
-for k = 2:1:10 %change
-    n = 2^k; %change
-    h = 1/n; %change
-    v1 = ones(n-1,1); %change
-    v2 = ones(n-2,1); %change
+for k = 2:1:10 
+    n = 2^k;
+    h = 1/n; 
+    v1 = ones(n-1,1); 
+    v2 = ones(n-2,1); 
     
-    %set up A and b 
-    %change
+    %set up A
     A = diag(v1*(4*h^2+2)) + diag(v2*(-1), -1) + diag(v2*(-1),1);
-    %change
     x = h:h:1-h;
     x = x';
-    %change
+    
     yexact = 1/4/(exp(2)-exp(-2))*(exp(2*x)-exp(-2*x))+1/4*x;
-    %change
+    %set up b
     b = x*h^2;
     b(1) = b(1) + 0;
     b(n-1) = b(n-1) + 1/2;
     b;
-     
-
-%     
+   
     %cholesky factorization
     tchol_start = tic;
     ychol = chol_solver(A,b);
@@ -45,7 +41,7 @@ end
 k = 2:1:10;
 h = 2.^(-k);
 
-%compare elasped time 
+%elasped time comparison
 figure 
 plot(log(h), time_plu, 'r-*');
 hold on 
@@ -55,7 +51,7 @@ ylabel('elapsed time');
 legend('PLU', 'Cholesky');
 hold off
 
-%compare error
+%error comparison
 figure 
 plot(log(h), log(abs(error_plu)), 'r-*');
 hold on 
